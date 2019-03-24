@@ -3,7 +3,7 @@
 		<h4 class='mt-2 mb-0'>Publiez !</h4>
 	</div>
 	<div class="card-body mt-0 pt-0">
-		<%= form_for @post, remote:true do | f |  %>
+		<%= form_tag posts_path, remote:true, multipart: true do %>
 		<% if @post.errors.any? %>
 			<div id="error_explanation">
 				<h2><%= pluralize(@post.errors.count, "erreur") %> ont empeche de creer cette publication:</h2>
@@ -17,25 +17,67 @@
 		<% end %>
 		
 		<div class="form-group">
-			<%= f.label :title, 'Titre', class:'target-post-form', style:'display:none' %><br>
-			<%= f.text_field :title, autofocus:true, class:"form-control bg-realwhite", placeholder:'Publiez !', id:'toggle_post_form' %>
+			<%= label_tag :title, 'Titre', class:'target-post-form', style:'display:none' %><br>
+			<%= text_field_tag 'title', nil, autofocus:true, class:"form-control bg-realwhite", placeholder:'Publiez !', id:'toggle_post_form' %>
 		</div>
 <span class='target-post-form' style='display:none'>
 		<div class="form-group"> 
-			<%= f.label :content, 'Contenu' %><br>
-			<%= f.text_area :content, autofocus:true, class:"form-control bg-realwhite" %>
+			<%= label_tag :content, 'Contenu' %><br>
+			<%= text_area_tag :content, nil, autofocus:true, class:"form-control bg-realwhite" %>
 		</div>
-		<div class="d-flex justify-content-between">
-			<div class="form-group"> 
-				<%= f.label :category_id, 'Categorie' %><br>
-				<%= f.select(:category_id, options_for_select(@categories.collect { | c | [c.name, c.id] }), class:" form-control selectpicker", data: {style:"select-with-transition btn-primary btn-round"}) %> 
+			<div class="form-group ml-2"> 
+				<%= label_tag :post_pictures, data: { toggle:"modal", target:"#photomodal" } do %><i class="now-ui-icons design_image"></i><% end %>
+				<!-- ---- MODAL PICTURE ---- -->
+				<div class="modal fade" id="photomodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Ajouter une photo</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div><br>
+							<div class="modal-body">
+								<div class="card text-center">
+									<!-- ---------- CONTENT --------- -->
+									<div class="card-body">
+										<h4 class="card-title">Editer votre publication</h4>
+										<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+											<div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+											<div>
+												<span class="btn btn-primary btn-block bouton btn-file">
+													<span class="fileinput-new">Choisir une photo</span>
+													<span class="fileinput-exists p-3">Changer</span>
+													<%= file_field_tag :post_pictures %></span>
+												<a href="#" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i>Annuler</a>
+											</div>
+										</div>
+									</div>
+	    							<!-- --------- CONTENT END ------- -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ------ MODAL END ---- -->
 			</div>
-			<div class="form-group mb-0 mt-3"> 
-				<%= f.submit :Publier, class:"col-12 btn btn-primary btn-round btn-block pull-right btn-messag mb-0" %>
+			<div class="d-flex justify-content-between">
+				<div class="form-group mr-1"> 
+					<%= label_tag :category_id, 'Categorie', class:'mb-0' %><br>
+					<%= select_tag(:category_id, options_for_select(@categories.collect { | c | [c.name, c.id] }), class:" form-control selectpicker mt-0", data: {style:"select-with-transition btn-secondary btn-round mt-0"}) %> 
+				</div>
+				<div class="form-group mb-0 mt-3"> 
+					<%= submit_tag :Publier, class:"col-12 btn btn-primary btn-round btn-block pull-right btn-messag mb-2" %>
+				</div>
 			</div>
-		</div>
 		<% end %>
 </span>	
 	</div>
 </div>
+
+
+
+
+
+
 

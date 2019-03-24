@@ -29,7 +29,7 @@ class Comment < ApplicationRecord
   end
 
   def was_writted_by(thisuser)
-    self.user == thisuser
+    self.user == thisuser || thisuser.is_admin
   end
 
   def likes_size

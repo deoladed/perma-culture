@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
 	def create
-		params[:comment_id] ? @comment = Comment.new(user: current_user, content:params[:comment][:content], commenteable: Comment.find(params[:comment_id])) : @comment = Comment.new(user: current_user, content:params[:comment][:content], commenteable: Post.find(params[:post_id]))
+		params[:comment_id] ? commenteable = Comment.find(params[:comment_id]) : commenteable = Post.find(params[:post_id])
+
+		@comment = Comment.new(user: current_user, content:params[:comment][:content], commenteable: commenteable)
 
 		if @comment.save
 			respond_to do |format|

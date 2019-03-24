@@ -30,8 +30,7 @@ class PostsController < ApplicationController
 
   def create
     @comment = Comment.new
-    @post = Post.new(post_params)
-    @post.writter = current_user
+    @post = Post.new(title: params[:title], content: params[:content], category_id: params[:category_id], writter: current_user, post_pictures: params[:post_pictures])
 
     if @post.save
       respond_to do |format|
@@ -39,8 +38,6 @@ class PostsController < ApplicationController
         format.html { redirect_to posts_path, notice: 'Publications cree avec succes.' }
       end
     else
-      p  @post.errors
-      p @post.errors.full_messages
       respond_to do |format|
         format.js { render "fail_create" }
         format.html { redirect_to posts_path, notice: "Erreur lors de la creation de votre publications" }

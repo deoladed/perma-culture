@@ -5,9 +5,9 @@ class EventsController < ApplicationController
   	@events = Event.all
     build_geojson(@events)
 
-		respond_to do |format|
-			format.html
-			format.json { render json: @geojson }
-		end
+    respond_to do |format|
+    	format.html
+    	format.json { render json: @geojson }
+    end
   end
 end

@@ -21,7 +21,7 @@
             <% end %>
         </h5>
         <!-- -- CONTENT  -->
-        <p id='comment-content-target-<%=comment.id%>'><%= comment.content_safe%></p>
+        <p id='comment-content-target-<%=comment.id%>'><%= simple_format(comment.content_safe) %></p>
         <!-- -- HIDDEN FORM  -->
         <div class="media-body" id='comment-form-target-<%=comment.id%>' style="display:none">
             <%= form_for @comment, url: post_comment_path(comment.commenteable_id, comment.id), method: :patch, remote: true do |f| %>

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
       root to: "posts#index"
     end
-
+# get '/welcome' => "posts#index", as: :user_root
   resources :posts, path: 'publications' do
     resources :post_pictures, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy]

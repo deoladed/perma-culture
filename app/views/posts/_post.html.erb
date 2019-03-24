@@ -24,7 +24,7 @@
   </div>
   <div class="card-body ml-2">
     <h5 class="card-title"><%= post.title.downcase %></h5>
-    <p class="card-text"><%= post.content_safe %></p>
+    <p class="card-text"><%= simple_format(post.content_safe) %></p>
   </div>
   </p>
   <!-- --------------------- POST_PICTURES /CARROUSEL -------------------------- -->

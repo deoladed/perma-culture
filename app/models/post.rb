@@ -52,7 +52,7 @@ class Post < ApplicationRecord
   end
 
   def was_writted_by(user)
-    self.writter == user
+    self.writter == user || user.is_admin
   end
 
   def likes_size
