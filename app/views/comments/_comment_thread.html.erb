@@ -4,7 +4,9 @@
     <div class="media pull-right">
         <%= link_to user_path(comment.user.id), class:"pull-left" do %>
             <div class="avatar">
-                <%= image_tag comment.user.avatar_mini, class:"media-object img-raised", alt:'Photo commentateur' %>
+                <% if comment.user.avatar.attached? %>
+                    <%= image_tag comment.user.avatar_mini, class:"media-object img-raised", alt:'Photo commentateur' %>
+                <% end %>
             </div>
         <% end -%>
     </div>

@@ -32,9 +32,12 @@
 
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
 <script>
   $(document).ready(function() {
     indexPosts(<%= @categories.size %>)
+
+    $('#comments').animateNumber({ number: <%= current_user.comments.size %> });
+    $('#posts').animateNumber({ number: <%= current_user.posts.size %> });
   })
 </script>

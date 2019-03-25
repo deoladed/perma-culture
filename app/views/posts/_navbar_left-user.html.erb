@@ -3,8 +3,52 @@
   <div class="cover"><%= image_tag 'bg-0.jpg' %>
   </div>
   <div class="user-info">
-    <div class="profile-pic mb-0"><%= link_to edit_user_path(current_user.id) do %><%= image_tag current_user.avatar_medium, alt:"Votre photo de profil" %><% end %>
+    <div class="profile-pic mb-0"><% if current_user.avatar.attached? %><%= image_tag current_user.avatar_medium, alt:"Votre photo de profil", data: { toggle:"modal", target:"#photoeditmodal" }, rel:"tooltip", title:"Changer de photo de profile" %><% end %>
     </div>
+        <!-- ---- MODAL PICTURE ---- -->
+        <div class="modal fade" id="photoeditmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter une photo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div><br>
+              <div class="modal-body">
+                <div class="card text-center">
+                  <!-- ---------- CONTENT --------- -->
+                  <div class="card-body pb-0">
+                    <%= form_tag user_avatars_path(current_user.id), multipart: true do %>
+                    <!-- ------- JASNY FILEUPLOAD ----- -->
+                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                      <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                      <div>
+                        <span class="btn btn-raised btn-round btn-default btn-file">
+                          <span class="fileinput-new">Ajouter photos</span>
+                          <span class="fileinput-exists">Changer</span>
+                          <%= file_field_tag :avatar %></span>
+                          <br />
+                          <a href="#" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                        </div>
+                      </div>
+                      <!-- ------- END JASNY ------ -->
+                      <hr class='mb-2'>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <%= submit_tag 'Ajouter une photo', class:"btn btn-primary" %>
+                      </div>
+                      <% end %>
+                  </div>
+                    <!-- --------- CONTENT END ------- -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ---- MODAL PICTURE END ---- -->
+
+
     <div class="username">
       <h3 class='mb-0'>@<%= link_to current_user.user_name.capitalize, user_path(current_user), class:'text-dark' %></h3>
       <p>Permaculteur</p>
@@ -13,11 +57,11 @@
     <div class="row">
       <div class="col-md-12 d-flex flex-wrap justify-content-around text-julien">
         <div class="social-description">
-          <h4 class='mb-1 mt-2'><%= current_user.posts.size %></h4>
+          <h4 class='mb-1 mt-2'><span id="posts">0</span></h4>
           <p class='font-weight-bold'>Publications</p>
         </div>
         <div class="social-description">
-          <h4 class='mb-1 mt-2'><%= current_user.comments.size %></h4>
+          <h4 class='mb-1 mt-2'><span id="comments">0</span></h4>
           <p class='font-weight-bold p2'>Commentaires</p>
         </div>
       </div>
@@ -44,4 +88,9 @@
     <li><%= post.title %></li>
     <%end%>
   </ul>
+<div id="typed-strings">
+    <p>Typed.js is a <strong>JavaScript</strong> library.</p>
+    <p>It <em>types</em> out sentences.</p>
+</div>
+<span id="typed"></span>
 </div>

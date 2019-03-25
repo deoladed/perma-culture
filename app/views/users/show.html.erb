@@ -8,21 +8,23 @@
       </div>
       <div class="content-center">
         <div class="photo-container">
-          <%= image_tag @user.avatar_big, class:'rounded-circle img-raised', alt:"Photo de profile"%>
+          <% if @user.avatar.attached? %>
+            <%= image_tag @user.avatar_big, class:'rounded-circle img-raised', alt:"Photo de profile"%>
+          <% end %>
         </div>
         <h3 class="title mt-1"><%= @user.user_name %></h3>
         <p><%= @user.email if @user.is(current_user) %></p>
         <div class="content">
           <div class="social-description">
-            <h2><%= @user.posts.size %></h2>
+            <h2><span id='user-posts'>0</span></h2>
             <p>Publications</p>
           </div>
           <div class="social-description">
-            <h2><%= @user.comments.size %></h2>
+            <h2><span id='user-comments'>0</span></h2>
             <p>Commentaires</p>
           </div>
           <div class="social-description">
-            <h2><%= @user.likes.size %></h2>
+            <h2><span id='user-likes'>0</span></h2>
             <p>Likes</p>
           </div>
         </div>
@@ -127,3 +129,8 @@
     <% end %>
   </script>
 <% end %>
+  <script>
+    $('#user-comments').animateNumber({ number: <%= @user.comments.size %> });
+    $('#user-posts').animateNumber({ number: <%= @user.posts.size %> });
+    $('#user-likes').animateNumber({ number: <%= @user.likes.size %> });
+  </script>

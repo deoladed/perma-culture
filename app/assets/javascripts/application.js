@@ -22,6 +22,7 @@
 //= require assets/js/plugins/nouislider.min
 //= require assets/js/plugins/bootstrap-datetimepicker.min
 //= require assets/js/now-ui-kit
+//= require assets/js/animatenumber/jquery.animateNumber.min
 //= require mapbox-gl
 //= require activestorage
 //= require_tree .

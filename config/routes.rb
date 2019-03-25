@@ -25,7 +25,9 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy, :update]
   end
 
-  resources :users, path: 'profil', only: [:show, :update, :edit, :destroy, :index]
+  resources :users, path: 'profil', only: [:show, :update, :edit, :destroy, :index] do
+    resources :avatars, only: [:create]
+  end
   resources :articles, only: [:index, :show]
   resources :events, only: [:index]
 
