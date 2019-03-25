@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   # after_create :tweet
   # after_create :fb_post
 
-  belongs_to :writter, class_name: 'User'
+  belongs_to :writter, class_name: 'User', counter_cache: true
   belongs_to :category
   has_many :comments, as: :commenteable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
