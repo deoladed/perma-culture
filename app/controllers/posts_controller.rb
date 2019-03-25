@@ -30,7 +30,8 @@ class PostsController < ApplicationController
 
   def create
     @comment = Comment.new
-    @post = Post.new(title: params[:title], content: params[:content], category_id: params[:category_id], writter: current_user, post_pictures: params[:post_pictures])
+    @post = Post.new(title: params[:title], content: params[:content], category_id: params[:category_id], writter: current_user)
+    @post.post_pictures = params[:post_pictures] if params[:post_pictures]
 
     if @post.save
       respond_to do |format|
